@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Player _player;
     [SerializeField] private SphereCollider _detectionCollider;
     [SerializeField] private float _detectionRadius = 5;
 

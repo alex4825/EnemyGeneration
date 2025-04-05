@@ -8,7 +8,7 @@ public class SpawnPoint : MonoBehaviour
     public IdleBehaviors IdleBehavior { get; private set; }
     
     [field: SerializeField]
-    public Reactions Reaction { get; private set; }
+    public ReactionBehaviors Reaction { get; private set; }
 
 
 }

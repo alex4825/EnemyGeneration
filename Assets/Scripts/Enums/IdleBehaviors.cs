@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum IdleBehaviors
 {
-    Stay,
-    Reaction
+    Wait,
+    PointsPatrol,
+    RardomPatrol,
 }
