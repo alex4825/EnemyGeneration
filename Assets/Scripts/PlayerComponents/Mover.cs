@@ -36,6 +36,14 @@ public class Mover : MonoBehaviour
         float verticalInput = Input.GetAxisRaw(NameAxisZ);
         float horizontalInput = Input.GetAxisRaw(NameAxisX);
 
-        MoveDirection = new Vector3(horizontalInput, 0, verticalInput).normalized;
+        Vector3 moveDirectionNormalized = new Vector3(horizontalInput, 0, verticalInput).normalized;
+
+        Vector3 cameraRightAxis = Camera.main.transform.right;
+        Vector3 cameraForwardFlat = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up).normalized;
+
+        Vector3 horizontalDirection = cameraRightAxis * horizontalInput;
+        Vector3 verticalDirection = cameraForwardFlat * verticalInput;
+        MoveDirection = (horizontalDirection + verticalDirection).normalized;
+
     }
 }

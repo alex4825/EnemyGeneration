@@ -1,5 +1,5 @@
 public interface IReactionBehavior
 {
-    void ProcessMovement(Enemy enemy, Player player);
+    void ProcessReaction(Enemy enemy, Player player);
 }
 

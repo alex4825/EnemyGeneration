@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     private Player _player;
 
     public EnemyMover Mover => _enemyMover;
+    public float DetectionRadius => _detectionRadius;
 
     private void Awake()
     {
@@ -32,7 +33,7 @@ public class Enemy : MonoBehaviour
                 break;
 
             case States.Reaction:
-                _reactionBehavior.ProcessMovement(this, _player);
+                _reactionBehavior.ProcessReaction(this, _player);
                 break;
         }
     }
@@ -61,4 +62,11 @@ public class Enemy : MonoBehaviour
     public void Set(IIdleBehavior idleBehavior) => _idleBehavior = idleBehavior;
 
     public void Set(IReactionBehavior reactionBehavior) => _reactionBehavior = reactionBehavior;
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
+
+    
 }

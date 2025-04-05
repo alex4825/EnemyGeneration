@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CatchUp : MonoBehaviour
+public class CatchUp : IReactionBehavior
 {
-    // Start is called before the first frame update
-    void Start()
+    public void ProcessReaction(Enemy enemy, Player player)
     {
-        
-    }
+        Vector3 directionToPlayer = (player.transform.position - enemy.transform.position).normalized;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        enemy.Mover.MoveTo(directionToPlayer);
     }
 }
