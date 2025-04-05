@@ -14,6 +14,21 @@ public class Spawner : MonoBehaviour
         {
             Enemy newEnemy = Instantiate(_enemyPrefab, spawnPoint.transform);
             enemies.Add(newEnemy);
+
+            switch (spawnPoint.IdleBehavior)
+            {
+                case IdleBehaviors.Wait:
+                    newEnemy.Set(new Wait());
+                    break;
+                
+                case IdleBehaviors.PointsPatrol:
+                    newEnemy.Set(new PointsPatrol(spawnPoints));
+                    break;
+                
+                case IdleBehaviors.RardomPatrol:
+                    newEnemy.Set(new RandomPatrol());
+                    break;
+            }
         }
 
         return enemies;
