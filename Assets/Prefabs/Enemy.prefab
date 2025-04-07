@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 897927350951143942}
   - component: {fileID: 2460258074219271049}
   - component: {fileID: 4993321946157664687}
-  - component: {fileID: 6190326396190821391}
   - component: {fileID: -9103391001572762079}
+  - component: {fileID: 2634094591622810353}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -92,22 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b814f99a14d3e3c4cba59a6b16f727cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyMover: {fileID: 6190326396190821391}
+  _enemyMover: {fileID: 2634094591622810353}
   _detectionCollider: {fileID: 2460258074219271049}
   _detectionRadius: 5
---- !u!114 &6190326396190821391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3431343518228002203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff97f3d50e36e254794a2683086b92e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 3
 --- !u!114 &-9103391001572762079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +109,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _particlesOnDestroyPrefab: {fileID: 389798826423821331, guid: 7d9fce1c155de3b4a95e8fdb5955616d,
     type: 3}
+--- !u!114 &2634094591622810353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431343518228002203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100dfdf4f6f0e84418191648b1046933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
 --- !u!1 &4019502974985623328
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,19 +1,21 @@
 using UnityEngine;
 
-public class RandomPatrol : IIdleBehavior
+public class RandomPatrol : IBehavior
 {
     private float _onePatrolMaxTime;
     private float _patrolTimer;
     private Vector3 _randomDirection;
+    private Mover _mover;
 
-    public RandomPatrol()
+    public RandomPatrol(Mover mover)
     {
         _onePatrolMaxTime = 1f;
         _patrolTimer = 0;
+        _mover = mover;
         UpdateRandomDirection();
     }
 
-    public void ProcessMovement(Enemy enemy)
+    public void UpdateMovement()
     {
         _patrolTimer += Time.deltaTime;
 
@@ -23,7 +25,7 @@ public class RandomPatrol : IIdleBehavior
             UpdateRandomDirection();
         }
 
-        enemy.Mover.MoveTo(_randomDirection.normalized);
+        _mover.MoveTo(_randomDirection.normalized);
     }
 
     private void UpdateRandomDirection()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Enemy _enemyPrefab;
+    [SerializeField] private Player _player;
 
     public List<Enemy> SpawnEnemiesIn(List<SpawnPoint> spawnPoints)
     {
@@ -28,15 +29,15 @@ public class Spawner : MonoBehaviour
         switch (currentPoint.IdleBehavior)
         {
             case IdleBehaviors.Wait:
-                enemy.Set(new Wait());
+                enemy.SetIdle(new Wait());
                 break;
 
             case IdleBehaviors.PointsPatrol:
-                enemy.Set(new PointsPatrol(points));
+                enemy.SetIdle(new PointsPatrol(enemy.Mover, points));
                 break;
 
             case IdleBehaviors.RardomPatrol:
-                enemy.Set(new RandomPatrol());
+                enemy.SetIdle(new RandomPatrol(enemy.Mover));
                 break;
         }
     }
@@ -46,17 +47,16 @@ public class Spawner : MonoBehaviour
         switch (currentPoint.ReactionBehavior)
         {
             case ReactionBehaviors.CatchingUp:
-                enemy.Set(new CatchUp());
+                enemy.SetReaction(new CatchUp(enemy.Mover, _player.transform));
                 break;
 
             case ReactionBehaviors.RunningAway:
-                enemy.Set(new RunAway());
+                enemy.SetReaction(new RunAway(enemy.Mover, _player.transform));
                 break;
 
             case ReactionBehaviors.Die:
-                enemy.Set(new Die());
+                enemy.SetReaction(new Die(enemy, _player.transform));
                 break;
         }
     }
-
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class Rotator : MonoBehaviour
 {
     [SerializeField] private float _rotationSpeed;
-    [SerializeField] private Mover _mover;
+    [SerializeField] private PlayerMover _mover;
 
     private void Update()
     {

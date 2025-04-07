@@ -2,7 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Speed : PositiveProperty
+public class Speed
 {
-    public Speed(float value) : base(value) { }
+    public float Value { get; private set; }
+
+    public Speed(float value)
+    {
+        Value = value;
+    }
+
+    public void Add(float value)
+    {
+        Value += value;
+    }
 }

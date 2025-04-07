@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDestroyable
 {
-    [SerializeField] private EnemyMover _enemyMover;
+    [SerializeField] private Mover _enemyMover;
     [SerializeField] private SphereCollider _detectionCollider;
     [SerializeField] private float _detectionRadius = 5;
 
     private States _state;
-    private IIdleBehavior _idleBehavior;
-    private IReactionBehavior _reactionBehavior;
+    private IBehavior _idleBehavior;
+    private IBehavior _reactionBehavior;
 
-    private Player _player;
-
-    public EnemyMover Mover => _enemyMover;
+    public Mover Mover => _enemyMover;
     public float DetectionRadius => _detectionRadius;
+
+    public Vector3 Position => transform.position;
 
     private void Awake()
     {
@@ -29,20 +29,18 @@ public class Enemy : MonoBehaviour
         switch (_state)
         {
             case States.Idle:
-                _idleBehavior.ProcessMovement(this);
+                _idleBehavior.UpdateMovement();
                 break;
 
             case States.Reaction:
-                _reactionBehavior.ProcessReaction(this, _player);
+                _reactionBehavior.UpdateMovement();
                 break;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        _player = other.GetComponent<Player>();
-
-        if (_player == null)
+        if (other.GetComponent<Player>() == null)
             return;
 
         _state = States.Reaction;
@@ -54,19 +52,16 @@ public class Enemy : MonoBehaviour
         if (other.GetComponent<Player>() == null)
             return;
 
-        _player = null;
         _state = States.Idle;
         Debug.Log($"Игрок покинул зону обнаружения врага {name}");
     }
 
-    public void Set(IIdleBehavior idleBehavior) => _idleBehavior = idleBehavior;
+    public void SetIdle(IBehavior behavior) => _idleBehavior = behavior;
 
-    public void Set(IReactionBehavior reactionBehavior) => _reactionBehavior = reactionBehavior;
+    public void SetReaction(IBehavior behavior) => _reactionBehavior = behavior;
 
     public void DestroySelf()
     {
         Destroy(gameObject);
     }
-
-    
 }

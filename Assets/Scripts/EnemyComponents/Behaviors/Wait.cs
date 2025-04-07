@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-public class Wait : IIdleBehavior
+public class Wait : IBehavior
 {
-    public void ProcessMovement(Enemy enemy)
+    public void UpdateMovement()
     {
         
     }
