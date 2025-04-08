@@ -9,9 +9,9 @@ public class Enemy : MonoBehaviour, IDestroyable
     [SerializeField] private SphereCollider _detectionCollider;
     [SerializeField] private float _detectionRadius = 5;
 
-    private States _state;
     private IBehavior _idleBehavior;
     private IBehavior _reactionBehavior;
+    private IBehavior _currentBehavior;
 
     public Mover Mover => _enemyMover;
     public float DetectionRadius => _detectionRadius;
@@ -20,22 +20,12 @@ public class Enemy : MonoBehaviour, IDestroyable
 
     private void Awake()
     {
-        _state = States.Idle;
         _detectionCollider.radius = _detectionRadius;
     }
 
     private void Update()
     {
-        switch (_state)
-        {
-            case States.Idle:
-                _idleBehavior.UpdateMovement();
-                break;
-
-            case States.Reaction:
-                _reactionBehavior.UpdateMovement();
-                break;
-        }
+        _currentBehavior.UpdateMovement();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,7 +33,7 @@ public class Enemy : MonoBehaviour, IDestroyable
         if (other.GetComponent<Player>() == null)
             return;
 
-        _state = States.Reaction;
+        _currentBehavior = _reactionBehavior;
         Debug.Log($"Игрок попал в зону обнаружения врага {name}");
     }
 
@@ -52,11 +42,15 @@ public class Enemy : MonoBehaviour, IDestroyable
         if (other.GetComponent<Player>() == null)
             return;
 
-        _state = States.Idle;
+        _currentBehavior = _idleBehavior;
         Debug.Log($"Игрок покинул зону обнаружения врага {name}");
     }
 
-    public void SetIdle(IBehavior behavior) => _idleBehavior = behavior;
+    public void SetIdle(IBehavior behavior)
+    {
+        _idleBehavior = behavior;
+        _currentBehavior = _idleBehavior;
+    }
 
     public void SetReaction(IBehavior behavior) => _reactionBehavior = behavior;
 

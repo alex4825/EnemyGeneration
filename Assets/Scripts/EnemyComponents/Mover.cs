@@ -8,7 +8,7 @@ public class Mover : MonoBehaviour
 
     public void MoveTo(Vector3 direction)
     {
-        Vector3 horizontalDirection = new Vector3(direction.x, 0, direction.z).normalized;
+        Vector3 horizontalDirection = new Vector3(direction.x, 0, direction.z).normalized; 
 
         transform.Translate(horizontalDirection * _speed * Time.deltaTime);
     }
